@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentbrief"
+version = "0.1.0"
+description = "Generate concise repository briefings for AI coding agents."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [
+  { name = "Billsfather" }
+]
+keywords = ["ai", "agents", "cli", "developer-tools", "codex", "github-copilot", "claude"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/Billsfather/agentbrief"
+Issues = "https://github.com/Billsfather/agentbrief/issues"
+
+[project.scripts]
+agent-brief = "agentbrief.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentbrief"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
