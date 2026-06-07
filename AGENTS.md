@@ -5,7 +5,7 @@ Generated for `github project`.
 ## Project Signals
 
 - Languages: `Python`, `TypeScript`
-- Files scanned: 26
+- Files scanned: 28
 - Dependency files: `pyproject.toml`, `pytest_tmp/test_scan_repository_detects_common_project_signals/pyproject.toml`
 - Documentation: `README.md`, `pytest_tmp/test_scan_repository_detects_common_project_signals/README.md`
 - CI: `.github/workflows/ci.yml`

@@ -21,3 +21,11 @@ jobs:
       - run: python -m pytest
       - run: agent-brief . --output AGENTS.md --check
 
+  action-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          output: AGENTS.md
+          check: true

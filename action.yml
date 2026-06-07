@@ -1,0 +1,58 @@
+name: AgentBrief
+description: Generate or check AGENTS.md-style repository briefings for AI coding agents.
+author: Billsfather
+
+branding:
+  icon: file-text
+  color: blue
+
+inputs:
+  path:
+    description: Repository path to scan.
+    required: false
+    default: "."
+  output:
+    description: Briefing file to generate or check.
+    required: false
+    default: "AGENTS.md"
+  format:
+    description: Output format. Use markdown or json.
+    required: false
+    default: "markdown"
+  max-files:
+    description: Maximum number of files to scan.
+    required: false
+    default: "120"
+  check:
+    description: Fail if the committed briefing is stale.
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Install AgentBrief
+      shell: bash
+      run: python -m pip install "$GITHUB_ACTION_PATH"
+
+    - name: Run AgentBrief
+      shell: bash
+      run: |
+        args=(
+          "${{ inputs.path }}"
+          "--output" "${{ inputs.output }}"
+          "--format" "${{ inputs.format }}"
+          "--max-files" "${{ inputs.max-files }}"
+        )
+
+        if [ "${{ inputs.check }}" = "true" ]; then
+          args+=("--check")
+        fi
+
+        agent-brief "${args[@]}"
+

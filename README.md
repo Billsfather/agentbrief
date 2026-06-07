@@ -9,6 +9,15 @@ pipx install agentbrief
 agent-brief .
 ```
 
+Or keep `AGENTS.md` fresh in GitHub Actions:
+
+```yaml
+- uses: Billsfather/agentbrief@v1
+  with:
+    output: AGENTS.md
+    check: true
+```
+
 No API keys. No network calls. No source upload.
 
 ## Why this exists
@@ -21,6 +30,7 @@ AI coding agents work better when they have a compact map of the repo before the
 - Detects languages, dependency manifests, scripts, tests, CI, docs, and notable source files.
 - Respects `.gitignore`-style common directories such as `.git`, `node_modules`, `dist`, `.venv`, and build caches.
 - Supports `--check` for CI so committed briefings stay fresh.
+- Ships as a GitHub Action for pull request checks.
 - Uses only the Python standard library.
 
 ## Quick Start
@@ -48,6 +58,31 @@ Emit machine-readable JSON:
 ```bash
 agent-brief . --format json --print
 ```
+
+## GitHub Action
+
+Add AgentBrief to CI:
+
+```yaml
+name: AgentBrief
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  agent-brief:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Billsfather/agentbrief@v1
+        with:
+          output: AGENTS.md
+          check: true
+```
+
+See [docs/github-action.md](docs/github-action.md) for all inputs.
 
 ## Example Output
 
@@ -90,7 +125,7 @@ High-star projects usually combine a timely problem, a tiny install path, a clea
 
 - Framework-specific detectors for Next.js, FastAPI, Django, Rails, Rust, Go, and Java.
 - Optional token-budgeted output for different agent context windows.
-- GitHub Action wrapper.
+- Framework-specific GitHub Action presets.
 - `AGENTS.md` merge mode that preserves hand-written maintainer notes.
 - Repository health score with actionable fixes.
 
@@ -106,4 +141,3 @@ python -m pytest
 ## License
 
 MIT
-
